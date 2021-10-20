@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beer Fetcher 🍺</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'beer-head';
+        src: url('./assets/fonts/BeerMoney-08po.ttf');
+    }
+    @font-face {
+        font-family: 'beer-note';
+        src: url('./assets/fonts/BeerNoteTrial-W56G.ttf');
+    }
+
+    body {
+        background-color: #86B049;
+        color: honeydew;
+    }
+    h1,h2,h3 {
+        font-family: 'beer-head', sans-serif;
+        color: white;
+        font-weight: normal;
+    }
+    h3 {
+        font-size: 25px;
+    }
+    p {
+        font-size: 16px;
+    }
+    #fetcher-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    button {
+        font-family: 'beer-note';
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 50px;
+    }
+    #main {
+        text-align: center;
+    }
+    #header {
+        font-size: 50px;
+    }
+    #fetchers-input {
+        width: 400px;
+        font-size: 30px;
+        border-radius: 10px;
+    }
+    
+</style>
+<body>
+    <div id="main">
+        <!-- Step 1-->
+        <div class="selection">
+            <h1 id="header">Welcome to Beer Fetcher 🍺</h1>
+            <h3>It's Friday then - then Saturday, Sunday, what?</h3>
+            <p>Add the name of people in the text box, seperated by commas</p>
+            <p>Once added, click on the button to see who has to fetch the beers today</p>
+            <form id="fetcher-form" onsubmit="selectFetcher()">
+                <input type="text" name="fetchers" id="fetchers-input"/>
+                <button id="fetch-btn" type="submit">Fetcher</button>
+            </form> 
+        </div>
+
+        <!-- Step 2-->
+        <div>Selecting . . .</div>
+
+        <!-- Step 3-->
+        <div>Person has to fetch beer</div>
+    </div>
+
+    <script>
+        const fetcherForm = document.getElementById("fetcher-form");
+        const fetchInput = document.getElementById("fetchers-input")
+        const fetchBtn = document.getElementById("fetch-btn");
+        const testList = [];
+
+        const selectFetcher = (event) => {
+            event.preventDefault();
+            const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
+            testList.push(...listOfPeople);
+            console.log(testList)
+            
+        }
+
+        console.log(testList)
+
+        const fetcher = fetchBtn.addEventListener("click", selectFetcher);
+
+    </script>
+</body>
+</html>
