@@ -77,9 +77,14 @@
     .beer-bubble {
         width: 10px;
         height: 10px;
-        background-color:blue;
+        background-color:white;
         border-radius: 50%;
         position: absolute;
+    }
+
+    .bubble-animate {
+        transform: translateY(-1090px);
+        transition: 3s;
     }
 
 </style>
@@ -102,7 +107,7 @@
         </div>
         <div class="beer-fill">
             <div class="beer-foam"></div>
-            <div class="beer-bubble"></div>
+            <!-- <div class="beer-bubble"></div> -->
         </div>
 
 
@@ -115,17 +120,17 @@
         const fetchInput = document.getElementById("fetchers-input")
         const fetchBtn = document.getElementById("fetch-btn");
         const testList = [];
-        const beerBubble = document.querySelector(".beer-fill");
-        const numOfBubbles = 30;
+        const beerFill = document.querySelector(".beer-fill");
+        const numOfBubbles = 100;
+       
 
         const selectFetcher = (event) => {
             event.preventDefault();
+            const beerBubble = Array.from(document.querySelectorAll(".beer-bubble"));
             const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
             testList.push(...listOfPeople);
-            console.log(testList)
+            beerBubble.forEach((element) => element.classList.toggle("bubble-animate"));
         }
-
-        console.log(testList)
 
         for(var i = 0; i < numOfBubbles; i++) {
             //Create bubble element
@@ -136,10 +141,8 @@
             bubble.style.top = Math.floor(Math.random() * 90) + "%";
             bubble.style.left = Math.floor(Math.random() * 90) + "%";
             //Add the element to the div with the class of "beer-fill"
-            beerBubble.appendChild(bubble);
+            beerFill.appendChild(bubble);
         }
-
-
 
         const fetcher = fetchBtn.addEventListener("click", selectFetcher);
 
