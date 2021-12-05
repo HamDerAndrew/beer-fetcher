@@ -11,10 +11,12 @@
         font-family: 'beer-head';
         src: url('./assets/fonts/BeerMoney-08po.ttf');
     }
+
     @font-face {
         font-family: 'beer-note';
         src: url('./assets/fonts/BeerNoteTrial-W56G.ttf');
     }
+
     html {
         height: 100%;
     }
@@ -23,14 +25,17 @@
         background-color: #86B049;
         color: honeydew;
     }
+
     h1,h2,h3 {
         font-family: 'beer-head', sans-serif;
         color: white;
         font-weight: normal;
     }
+
     h3 {
         font-size: 25px;
     }
+
     p {
         font-size: 16px;
     }
@@ -47,12 +52,15 @@
         cursor: pointer;
         font-size: 50px;
     }
+
     #main {
         text-align: center;
     }
+
     #header {
         font-size: 50px;
     }
+
     #fetchers-input {
         width: 400px;
         font-size: 30px;
@@ -62,7 +70,7 @@
     .beer-fill {
         position: absolute;
         width: 100%;
-        height: 30%;
+        height: 0%;
         bottom: 0;
         left: 0;
         background-color: #EBA300;
@@ -82,9 +90,45 @@
         position: absolute;
     }
 
+    .beer-fill-animate {
+        height: 100%;
+        transition: 2.5s;
+    }
+
+    .beer-foam-animate {
+        height: 15%;
+        transition: 1s;
+    }
+
     .bubble-animate {
         transform: translateY(-1090px);
-        transition: 3s;
+        transition-duration: 3s;
+        transition-delay: 1.5s;
+        transition-timing-function: ease-in;
+    }
+
+    .result {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #86B049;
+        transform: translateX(-100%);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .result-animate {
+        transform: translateX(0%);
+        transition-duration: 2s;
+    }
+
+    .the-fetcher {
+        font-size: 45px;
     }
 
 </style>
@@ -103,33 +147,60 @@
         </div>
 
         <!-- Step 2-->
-        <div>Selecting . . .
-        </div>
         <div class="beer-fill">
             <div class="beer-foam"></div>
-            <!-- <div class="beer-bubble"></div> -->
         </div>
 
 
         <!-- Step 3-->
-        <div>Person has to fetch beer</div>
+        <div class="result">
+            <div>
+                🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺
+            </div>
+            <p class="the-fetcher">
+                Person has to fetch beer
+            </p>
+            <div>
+                🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺
+            </div>
+        </div>
     </div>
 
     <script>
         const fetcherForm = document.getElementById("fetcher-form");
         const fetchInput = document.getElementById("fetchers-input")
         const fetchBtn = document.getElementById("fetch-btn");
-        const testList = [];
+        const personsList = [];
         const beerFill = document.querySelector(".beer-fill");
+        const beerFoam = document.querySelector(".beer-foam");
         const numOfBubbles = 100;
+        const result = document.querySelector(".result");
+        const resultTimer = 5000;
+        const theFetcher = document.querySelector(".the-fetcher");
        
-
         const selectFetcher = (event) => {
             event.preventDefault();
             const beerBubble = Array.from(document.querySelectorAll(".beer-bubble"));
             const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
-            testList.push(...listOfPeople);
+            personsList.push(...listOfPeople);
+            beerFill.classList.toggle("beer-fill-animate");
+            beerFoam.classList.toggle("beer-foam-animate");
+            selectRandom(personsList)
             beerBubble.forEach((element) => element.classList.toggle("bubble-animate"));
+            // theFetcher.innerHTML = `${selectRandom(testList)} has to fetch beer`;
+            resultSlide();
+        }
+        
+        const resultSlide = () => {            
+            setTimeout(() => {
+                result.classList.toggle("result-animate");
+            },resultTimer)
+        }
+
+        const selectRandom = (list) => {
+            const randomNumber = Math.floor(Math.random() * list.length);
+            const randomPerson = list[randomNumber];
+            theFetcher.innerHTML = `${randomPerson} has to fetch beer`;
         }
 
         for(var i = 0; i < numOfBubbles; i++) {
@@ -138,14 +209,14 @@
             //Add the "beer-bubble" class to the element
             bubble.classList.add("beer-bubble");
             //Add the "top" and "left" styling based on random value of 90 as the max
-            bubble.style.top = Math.floor(Math.random() * 90) + "%";
-            bubble.style.left = Math.floor(Math.random() * 90) + "%";
+            bubble.style.top = Math.floor(Math.random() * 99) + "%";
+            bubble.style.left = Math.floor(Math.random() * 99) + "%";
             //Add the element to the div with the class of "beer-fill"
             beerFill.appendChild(bubble);
         }
 
         const fetcher = fetchBtn.addEventListener("click", selectFetcher);
-
+        
     </script>
 </body>
 </html>
