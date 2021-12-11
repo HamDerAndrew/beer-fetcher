@@ -26,7 +26,7 @@ const createBubbles = () => {
 
 const selectFetcher = (event) => {
     event.preventDefault();
-    const beerBubble = Array.from(document.querySelectorAll(".beer-bubble"));
+    const beerBubble = document.querySelectorAll(".beer-bubble");
     const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
     personsList.push(...listOfPeople);
     beerFill.classList.toggle("beer-fill-animate");
