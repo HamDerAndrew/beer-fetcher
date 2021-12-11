@@ -88,6 +88,7 @@
         background-color:white;
         border-radius: 50%;
         position: absolute;
+        opacity: 0;
     }
 
     .beer-fill-animate {
@@ -105,6 +106,7 @@
         transition-duration: 3s;
         transition-delay: 1.5s;
         transition-timing-function: ease-in;
+        opacity: 1;
     }
 
     .result {
@@ -163,6 +165,9 @@
             <div>
                 🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺
             </div>
+            <div>
+                <button id="reset-btn">Go again!</button>
+            </div>
         </div>
     </div>
 
@@ -175,8 +180,9 @@
         const beerFoam = document.querySelector(".beer-foam");
         const numOfBubbles = 100;
         const result = document.querySelector(".result");
-        const resultTimer = 5000;
+        const resultTimer = 4000;
         const theFetcher = document.querySelector(".the-fetcher");
+        const resetBtn = document.getElementById("reset-btn");
        
         const selectFetcher = (event) => {
             event.preventDefault();
@@ -185,9 +191,8 @@
             personsList.push(...listOfPeople);
             beerFill.classList.toggle("beer-fill-animate");
             beerFoam.classList.toggle("beer-foam-animate");
-            selectRandom(personsList)
             beerBubble.forEach((element) => element.classList.toggle("bubble-animate"));
-            // theFetcher.innerHTML = `${selectRandom(testList)} has to fetch beer`;
+            selectRandom(personsList)
             resultSlide();
         }
         
@@ -215,7 +220,14 @@
             beerFill.appendChild(bubble);
         }
 
+        const resetFetch = () => {
+            result.classList.toggle("result-animate");
+            beerFill.classList.toggle("beer-fill-animate");
+            beerFoam.classList.toggle("beer-foam-animate");
+        } 
+
         const fetcher = fetchBtn.addEventListener("click", selectFetcher);
+        const reset = resetBtn.addEventListener("click", resetFetch);
         
     </script>
 </body>
