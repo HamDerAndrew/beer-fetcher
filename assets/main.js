@@ -27,7 +27,14 @@ const createBubbles = () => {
 const selectFetcher = (event) => {
     event.preventDefault();
     const beerBubble = Array.from(document.querySelectorAll(".beer-bubble"));
-    const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
+    const listOfPeople = fetchInput.value.split(",").map((name) => {
+        let monkeh;
+        name.trim()
+        if(name === "Peter") {
+            monkeh = "Abe";
+            return monkeh;
+        }
+    });
     personsList.push(...listOfPeople);
     beerFill.classList.toggle("beer-fill-animate");
     beerFoam.classList.toggle("beer-foam-animate");
