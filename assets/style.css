@@ -42,6 +42,7 @@ button {
     border-radius: 15px;
     cursor: pointer;
     font-size: 50px;
+    margin-top: 35px;
 }
 
 #main {
@@ -122,4 +123,20 @@ button {
 
 .the-fetcher {
     font-size: 45px;
+}
+
+/* Mobile device 576px and below */
+@media only screen and (max-width: 576px) {
+    #fetchers-input {
+        max-width: 310px;
+    }
+    #header {
+        font-size: 40px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    p {
+        font-size: 14px;
+    }
 }
