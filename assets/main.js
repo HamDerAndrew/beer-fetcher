@@ -26,14 +26,18 @@ const createBubbles = () => {
 
 const selectFetcher = (event) => {
     event.preventDefault();
-    const beerBubble = document.querySelectorAll(".beer-bubble");
-    const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
-    personsList.push(...listOfPeople);
-    beerFill.classList.toggle("beer-fill-animate");
-    beerFoam.classList.toggle("beer-foam-animate");
-    beerBubble.forEach((element) => element.classList.toggle("bubble-animate"));
-    selectRandom(personsList)
-    resultSlide();
+    if (fetchInput.value === "") {
+        alert("Insert name")
+    } else {
+        const beerBubble = document.querySelectorAll(".beer-bubble");
+        const listOfPeople = fetchInput.value.split(",").map((name) => name.trim());
+        personsList.push(...listOfPeople);
+        beerFill.classList.toggle("beer-fill-animate");
+        beerFoam.classList.toggle("beer-foam-animate");
+        beerBubble.forEach((element) => element.classList.toggle("bubble-animate"));
+        selectRandom(personsList)
+        resultSlide();
+    }
 }
 
 const resultSlide = () => {            
@@ -56,6 +60,6 @@ const resetFetch = () => {
     allBubbles.forEach((element) => element.classList.remove("bubble-animate"));
 } 
 
-const fetcher = fetchBtn.addEventListener("click", selectFetcher);
-const reset = resetBtn.addEventListener("click", resetFetch);
+fetchBtn.addEventListener("click", selectFetcher);
+resetBtn.addEventListener("click", resetFetch);
 createBubbles();
